@@ -11,6 +11,7 @@ namespace Game.Scripts
         [SerializeField] private HeadBobController _headBobController = default;
         [SerializeField] private WalkWeaponDriftController _walkWeaponDriftController = default;
         [SerializeField] private WalkAnimationController _walkAnimationController = default;
+        [SerializeField] private WeaponsController _weaponsController = default;
 
         public MovementController MovementController => _movementController;
         public CrouchToggleController CrouchToggleController => _crouchToggleController;
@@ -19,6 +20,7 @@ namespace Game.Scripts
         public HeadBobController HeadBobController => _headBobController;
         public WalkWeaponDriftController WalkWeaponDriftController => _walkWeaponDriftController;
         public WalkAnimationController WalkAnimationController => _walkAnimationController;
+        public WeaponsController WeaponsController => _weaponsController;
 
         public override void Init()
         {
@@ -31,6 +33,7 @@ namespace Game.Scripts
             AttachComponent(_headBobController);
             AttachComponent(_walkWeaponDriftController);
             AttachComponent(_walkAnimationController);
+            AttachComponent(_weaponsController);
         }
 
         public override void Dispose()
@@ -42,6 +45,7 @@ namespace Game.Scripts
             DetachComponent(_headBobController);
             DetachComponent(_walkWeaponDriftController);
             DetachComponent(_walkAnimationController);
+            DetachComponent(_weaponsController);
 
             base.Dispose();
         }
