@@ -130,25 +130,18 @@ namespace Game.Scripts
 
         public override void PhysicsTick()
         {
-            CalculateGravityInfluence();
-            CalculateHorizontalVelocity();
             ClampVelocity();
-
             Move();
         }
 
         public override void Tick()
         {
+            CalculateGravityInfluence();
+            CalculateHorizontalVelocity();
             CalculateRotation();
             Rotate();
+            ProcessJump();
             ProcessSteps();
-
-            if (_raycastController.HasGround && GameManager.Instance.InputWrapper.IsJumpPressed && 
-                !_crouchToggleController.IsCrouching)
-                SwitchToJumpVelocityY();
-
-            if (!_raycastController.HasGround && _velocity.y > _minJumpVelocity && GameManager.Instance.InputWrapper.IsJumpReleased)
-                SwitchToMinJumpVelocityY();
         }
 
         private void CalculateGravityInfluence()
@@ -224,6 +217,18 @@ namespace Game.Scripts
 
             _cameraRotation.x = _smoothPitch;
             _camera.transform.localEulerAngles = _cameraRotation;
+        }
+
+        private void ProcessJump()
+        {
+            if (_raycastController.HasGround &&
+                GameManager.Instance.InputWrapper.IsJumpPressed &&
+                !_crouchToggleController.IsCrouching)
+                SwitchToJumpVelocityY();
+
+            if (!_raycastController.HasGround && _velocity.y > _minJumpVelocity &&
+                GameManager.Instance.InputWrapper.IsJumpReleased)
+                SwitchToMinJumpVelocityY();
         }
 
         private void ProcessSteps()

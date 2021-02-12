@@ -14,5 +14,7 @@
 
         public const string WeaponZero = "WeaponZero";
         public const string WeaponOne = "WeaponOne";
+
+        public const string Settings = "Settings";
     }
 }

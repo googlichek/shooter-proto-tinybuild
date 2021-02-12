@@ -16,9 +16,6 @@ namespace Game.Scripts
 
         public SettingsData Data => _data;
 
-        public float WalkSpeed => _walkSpeed;
-        public float CrouchSpeed => _crouchSpeed;
-
         public void Init()
         {
             SetValues(_walkSpeed, _crouchSpeed);
@@ -27,6 +24,10 @@ namespace Game.Scripts
         public void SetValues(float walkSpeed, float crouchSpeed)
         {
             _data = new SettingsData(walkSpeed, crouchSpeed);
+
+            _walkSpeed = _data.WalkSpeed;
+            _crouchSpeed = _data.CrouchSpeed;
+
             OnChanged?.Invoke(_data);
         }
     }

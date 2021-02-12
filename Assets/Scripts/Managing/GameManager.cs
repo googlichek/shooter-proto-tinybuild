@@ -13,6 +13,7 @@ namespace Game.Scripts
         [SerializeField] private InputWrapper _inputWrapper = default;
         [SerializeField] private PoolManager _poolManager = default;
         [SerializeField] private DataBase _dataBase = default;
+        [SerializeField] private UIManager _uiManager = default;
 
         private readonly List<ITick> _lowPriorityTicks = new List<ITick>();
         private readonly List<ITick> _normalPriorityTicks = new List<ITick>();
@@ -24,6 +25,7 @@ namespace Game.Scripts
         public InputWrapper InputWrapper => _inputWrapper;
         public PoolManager PoolManager => _poolManager;
         public DataBase DataBase => _dataBase;
+        public UIManager UIManager => _uiManager;
 
         public int Tick => _tick;
 

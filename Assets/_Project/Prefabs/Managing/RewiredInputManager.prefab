@@ -312,9 +312,9 @@ MonoBehaviour:
       _userAssignable: 1
       _categoryId: 0
     - _id: 11
-      _name: SettingsScreen
+      _name: Settings
       _type: 1
-      _descriptiveName: SettingsScreen
+      _descriptiveName: Settings
       _positiveDescriptiveName: 
       _negativeDescriptiveName: 
       _behaviorId: 0
