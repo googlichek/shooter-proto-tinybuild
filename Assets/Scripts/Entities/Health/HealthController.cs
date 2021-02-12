@@ -2,11 +2,17 @@
 
 namespace Game.Scripts
 {
-    public class HealthController : TickComponent, IHealth
+    public class HealthController : TickBehaviour, IHealth
     {
+        [SerializeField] private Rigidbody _rigidbody = default;
+
+        [Space]
+
         [SerializeField] [Range(0, 1000)] private float _maxHealth = 150;
 
         private float _health;
+
+        public Rigidbody Rigidbody => _rigidbody;
 
         public float MaxHealth => _maxHealth;
         public float Health => _health;
@@ -14,6 +20,16 @@ namespace Game.Scripts
         public override void Enable()
         {
             _health = _maxHealth;
+        }
+
+        public override void Tick()
+        {
+            base.Tick();
+
+            if (_health > 0)
+                return;
+
+            Destroy(gameObject);
         }
 
         public void Damage(float value)

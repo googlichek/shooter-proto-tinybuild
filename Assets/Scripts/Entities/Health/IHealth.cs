@@ -1,7 +1,11 @@
-﻿namespace Game.Scripts
+﻿using UnityEngine;
+
+namespace Game.Scripts
 {
     public interface IHealth
     {
+        Rigidbody Rigidbody { get; }
+
         int Id { get; }
 
         float MaxHealth { get; }

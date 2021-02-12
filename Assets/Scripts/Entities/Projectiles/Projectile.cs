@@ -19,19 +19,14 @@ namespace Game.Scripts
 
         [SerializeField] [Range(0, 1000)] private int _launchForce = 500;
 
-        [SerializeField] [Range(0, 50)] private int _pushBackForceX = 0;
-        [SerializeField] [Range(0, 50)] private int _pushBackForceY = 0;
-        [SerializeField] [Range(0, 50)] private int _pushBackForceZ = 0;
+        [SerializeField] [Range(0, 500)] private int _pushBackForce = 0;
 
         [Space]
 
         [SerializeField] [Range(0, 10)] private float _totalLifeTime = 5f;
-        [SerializeField] [Range(0, 10)] private float _nextSpawnDelay = 0.25f;
 
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;
-
-        private Vector3 _pushBackForce;
 
         private int _ownerId;
 
@@ -45,10 +40,8 @@ namespace Game.Scripts
 
         public int OwnerId => _ownerId;
         public int Damage => _damage;
-        public Vector3 PushBackForce { get; }
 
         public int LaunchForce => _launchForce;
-        public float NextSpawnDelay => _nextSpawnDelay;
 
         void OnTriggerEnter(Collider bump)
         {
@@ -81,15 +74,13 @@ namespace Game.Scripts
             _isHit = false;
             _creationTime = Time.time;
             _rigidbody.velocity = Vector3.zero;
-
-            _pushBackForce = new Vector3(_pushBackForceX, _pushBackForceY, _pushBackForceZ);
         }
 
         public override void Tick()
         {
             base.Tick();
 
-            if (!IsValid)
+            if (!IsValid && !_audioSource.isPlaying)
                 GameManager.Instance.PoolManager.Despawn(this);
         }
 

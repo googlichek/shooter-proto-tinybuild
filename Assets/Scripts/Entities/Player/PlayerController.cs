@@ -33,7 +33,9 @@ namespace Game.Scripts
             AttachComponent(_headBobController);
             AttachComponent(_walkWeaponDriftController);
             AttachComponent(_walkAnimationController);
+
             AttachComponent(_weaponsController);
+            _weaponsController.Setup(_crouchToggleController);
         }
 
         public override void Dispose()
