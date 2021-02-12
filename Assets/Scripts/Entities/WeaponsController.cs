@@ -20,11 +20,17 @@ namespace Game.Scripts
 
         public override void Init()
         {
+            _activeWeaponIndex = -1;
             foreach (var weaponTemplate in _weaponTemplates)
             {
                 var weapon = Instantiate(weaponTemplate, _modelRoot);
                 _weapons.Add(weapon);
             }
+        }
+
+        public override void Enable()
+        {
+            UpdateWeaponSelection(SimpleGunIndex);
         }
 
         public override void Tick()

@@ -11,10 +11,6 @@ namespace Game.Scripts
 
         [SerializeField] private List<AudioClip> _stepSounds = new List<AudioClip>();
 
-        [Space]
-
-        [SerializeField] private List<AudioClip> _shootSounds = new List<AudioClip>();
-
         private int _lastStepClipIndex;
         private int _lastAudioSourceIndex;
 
@@ -28,18 +24,6 @@ namespace Game.Scripts
         {
             var audioSource = GetAudioSource();
             var audioClip = GetStepAudioClip();
-
-            if (audioClip == null)
-                return;
-
-            audioSource.clip = audioClip;
-            audioSource.Play();
-        }
-        
-        public void PlayShootSound()
-        {
-            var audioSource = GetAudioSource();
-            var audioClip = GetShootAudioClip();
 
             if (audioClip == null)
                 return;
@@ -81,15 +65,6 @@ namespace Game.Scripts
             return _stepSounds.Count > nextStepClipIndex
                 ? _stepSounds[nextStepClipIndex]
                 : null;
-        }
-
-        private AudioClip GetShootAudioClip()
-        {
-            if (_shootSounds.Count <= 0)
-                return null;
-
-            var nextShootClipIndex = Random.Range(0, _shootSounds.Count);
-            return _shootSounds[nextShootClipIndex];
         }
     }
 }

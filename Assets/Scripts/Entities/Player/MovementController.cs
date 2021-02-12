@@ -143,7 +143,8 @@ namespace Game.Scripts
             Rotate();
             ProcessSteps();
 
-            if (_raycastController.HasGround && GameManager.Instance.InputWrapper.IsJumpPressed)
+            if (_raycastController.HasGround && GameManager.Instance.InputWrapper.IsJumpPressed && 
+                !_crouchToggleController.IsCrouching)
                 SwitchToJumpVelocityY();
 
             if (!_raycastController.HasGround && _velocity.y > _minJumpVelocity && GameManager.Instance.InputWrapper.IsJumpReleased)

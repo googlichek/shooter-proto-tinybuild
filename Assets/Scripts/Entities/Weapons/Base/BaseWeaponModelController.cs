@@ -41,6 +41,10 @@ namespace Game.Scripts
         protected Vector3 usePosition;
         protected Vector3 useRotation;
 
+        protected bool isUseAllowed;
+
+        public bool IsUseAllowed => isUseAllowed;
+
         public override void Init()
         {
             initialPosition = transform.localPosition;
@@ -106,12 +110,14 @@ namespace Game.Scripts
             switchInSequence.SetAutoKill(false);
             switchInSequence.Pause();
 
-            switchInSequence.AppendCallback(() => gameObject.SetActive(true));
+            switchInSequence.AppendCallback(() => _model.SetActive(true));
 
             switchInSequence.Append(transform.DOLocalMove(switchPosition, 0));
             switchInSequence.Append(transform.DOLocalMove(initialPosition, switchInDuration).SetEase(switchInEase));
 
             switchInSequence.SetDelay(switchOutDuration);
+
+            switchInSequence.AppendCallback(() => isUseAllowed = true);
         }
 
         protected virtual void CreateSwitchOutSequence()
@@ -120,10 +126,12 @@ namespace Game.Scripts
             switchOutSequence.SetAutoKill(false);
             switchOutSequence.Pause();
 
+            switchOutSequence.AppendCallback(() => isUseAllowed = false);
+
             switchOutSequence.Append(transform.DOLocalMove(initialPosition, 0));
             switchOutSequence.Append(transform.DOLocalMove(switchPosition, switchOutDuration).SetEase(switchOutEase));
 
-            switchOutSequence.AppendCallback(() => gameObject.SetActive(false));
+            switchOutSequence.AppendCallback(() => _model.SetActive(false));
         }
 
         protected virtual void CreateUseSequence()
