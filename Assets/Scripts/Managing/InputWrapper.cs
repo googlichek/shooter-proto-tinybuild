@@ -29,10 +29,14 @@ namespace Game.Scripts
         private bool _isWeaponZeroPressed;
         private bool _isWeaponZeroReleased;
         private bool _isWeaponZeroHeld;
-        
+
         private bool _isWeaponOnePressed;
         private bool _isWeaponOneReleased;
         private bool _isWeaponOneHeld;
+
+        private bool _isEscapePressed;
+        private bool _isEscapeReleased;
+        private bool _isEscapeHeld;
 
         public float LeftStickHorizontal => _leftStickHorizontal;
         public float LeftStickVertical => _leftStickVertical;
@@ -59,6 +63,10 @@ namespace Game.Scripts
         public bool IsWeaponOnePressed => _isWeaponOnePressed;
         public bool IsWeaponOneReleased => _isWeaponOneReleased;
         public bool IsWeaponOneHeld => _isWeaponOneHeld;
+
+        public bool IsEscapePressed => _isEscapePressed;
+        public bool IsWEscapeReleased => _isEscapeReleased;
+        public bool IsEscapeHeld => _isEscapeHeld;
 
         private bool _isTimeToReset;
 
@@ -119,6 +127,10 @@ namespace Game.Scripts
             _isWeaponOnePressed = false;
             _isWeaponOneReleased = false;
             _isWeaponOneHeld = false;
+            
+            _isEscapePressed = false;
+            _isEscapeReleased = false;
+            _isEscapeHeld = false;
         }
 
         private void HandleInput()
@@ -148,6 +160,10 @@ namespace Game.Scripts
             _isWeaponOnePressed = _isWeaponOnePressed || _player.GetButtonDown(InputActions.WeaponOne);
             _isWeaponOneReleased = _isWeaponOneReleased || _player.GetButtonUp(InputActions.WeaponOne);
             _isWeaponOneHeld = _isWeaponOneHeld || _player.GetButton(InputActions.WeaponOne);
+
+            _isEscapePressed = _isEscapePressed || _player.GetButtonDown(InputActions.WeaponOne);
+            _isEscapeReleased = _isEscapeReleased || _player.GetButtonUp(InputActions.WeaponOne);
+            _isEscapeHeld = _isEscapeHeld || _player.GetButton(InputActions.WeaponOne);
         }
     }
 }

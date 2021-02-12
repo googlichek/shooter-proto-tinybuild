@@ -40,12 +40,12 @@ namespace Game.Scripts
             //Cursor.visible = false;
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             Instantiate(_rewired, transform);
         }
 
-        private void FixedUpdate()
+        void FixedUpdate()
         {
             for (var i = 0; i < _highPriorityTicks.Count; i++)
                 _highPriorityTicks[i].PhysicsTick();
@@ -57,7 +57,7 @@ namespace Game.Scripts
                 _lowPriorityTicks[i].PhysicsTick();
         }
 
-        private void Update()
+        void Update()
         {
             _tick++;
 
@@ -73,7 +73,7 @@ namespace Game.Scripts
             DOTween.ManualUpdate(Time.deltaTime, Constants.SecondsPerFrame);
         }
 
-        private void LateUpdate()
+        void LateUpdate()
         {
             for (var i = 0; i < _highPriorityTicks.Count; i++)
                 _highPriorityTicks[i].CameraTick();
@@ -83,6 +83,10 @@ namespace Game.Scripts
 
             for (var i = 0; i < _lowPriorityTicks.Count; i++)
                 _lowPriorityTicks[i].CameraTick();
+        }
+
+        protected override void Setup()
+        {
         }
 
         public bool CheckIfAttached(ITick tick)
