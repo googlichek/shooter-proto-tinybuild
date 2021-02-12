@@ -42,6 +42,7 @@ namespace Game.Scripts
 
         public virtual void Use()
         {
+            _weaponModel.Use();
         }
     }
 }

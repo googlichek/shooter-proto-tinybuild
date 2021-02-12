@@ -251,7 +251,14 @@ MonoBehaviour:
   _model: {fileID: 5636618833795763365}
   switchInDuration: 0.35
   switchOutDuration: 0.35
+  useInDuration: 0.15
+  useOutDuration: 0.3
   switchOffsetX: 0.2
   switchOffsetY: 0.2
+  useOffsetY: 0.045
+  useOffsetZ: 0.045
+  useOffsetRotation: 30
   switchInEase: 27
   switchOutEase: 26
+  useInEase: 27
+  useOutEase: 3
