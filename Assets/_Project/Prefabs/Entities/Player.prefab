@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpPower: 0.01
-  _sideOffset: 0
+  _sideOffset: 0.025
   _jumpDuration: 0.3
   _walkResetDuration: 0.15
   _walkEase: 3

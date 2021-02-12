@@ -5,6 +5,11 @@ namespace Game.Scripts
 {
     public class Projectile : TickBehaviour, IResource, IDamageDealer
     {
+        [SerializeField] private Rigidbody _rigidbody = default;
+        [SerializeField] private AudioSource _audioSource = default;
+
+        [Space]
+
         [SerializeField] private ResourceType _type = ResourceType.None;
 
         [Space]
@@ -24,9 +29,6 @@ namespace Game.Scripts
         [Space]
 
         [SerializeField] [Range(0, 10)] private float _totalLifeTime = 5f;
-
-        private Rigidbody _rigidbody;
-        private AudioSource _audioSource;
 
         private int _ownerId;
 
@@ -57,14 +59,6 @@ namespace Game.Scripts
                 return;
 
             damageReciever.Damage(Damage);
-        }
-
-        public override void Init()
-        {
-            base.Init();
-
-            _rigidbody = GetComponent<Rigidbody>();
-            _audioSource = GetComponent<AudioSource>();
         }
 
         public override void Enable()

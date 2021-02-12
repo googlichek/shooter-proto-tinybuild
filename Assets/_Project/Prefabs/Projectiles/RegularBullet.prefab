@@ -221,13 +221,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9263c9604c405574bbef461b0907460b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody: {fileID: -7708793779252028495}
+  _audioSource: {fileID: 7375981454725996079}
   _type: 1
   _layerMask:
     serializedVersion: 2
     m_Bits: 270336
   _damage: 50
   _launchForce: 800
-  _pushBackForceX: 0
-  _pushBackForceY: 0
-  _pushBackForceZ: 0
+  _pushBackForce: 0
   _totalLifeTime: 5
