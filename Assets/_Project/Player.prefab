@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 1732430282251430377}
   - component: {fileID: 1732430282251430372}
   - component: {fileID: 1732430282251430374}
+  - component: {fileID: -2622320826284675047}
   - component: {fileID: 1732430282251430375}
   m_Layer: 8
   m_Name: Player
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementController: {fileID: 1732430282251430374}
+  _crouchToggleController: {fileID: -2622320826284675047}
   _raycastController: {fileID: 1732430282251430375}
   _soundController: {fileID: 7681544518858113296}
   _headBobController: {fileID: 7804487351002211865}
@@ -202,6 +204,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 1732430282251430377}
   _raycastController: {fileID: 1732430282251430375}
   _soundController: {fileID: 7681544518858113296}
+  _crouchToggleController: {fileID: -2622320826284675047}
   _maxVelocityX: 100
   _maxVelocityY: 100
   _maxVelocityZ: 100
@@ -210,7 +213,7 @@ MonoBehaviour:
   _timeToJumpApex: 0.35
   _maxJumpHeight: 1.5
   _minJumpHeight: 0.25
-  _minGravityPull: 3
+  _minGravityPull: 1
   _lookSpeedX: 0.75
   _lookSpeedY: 0.5
   _pitchMin: 45
@@ -219,6 +222,22 @@ MonoBehaviour:
   _accelerationTimeAirborne: 0.1
   _accelerationTimeLook: 0.075
   _stepDistance: 2
+--- !u!114 &-2622320826284675047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732430282251430382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60159af395c076439a8c65997ce5988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider: {fileID: 1732430282251430376}
+  _crouchingHeight: 1
+  _standingHeight: 2
+  _accelerationTime: 0.1
 --- !u!114 &1732430282251430375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,10 +251,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 1732430282251430376}
+  _crouchToggleController: {fileID: -2622320826284675047}
   _layerMask:
     serializedVersion: 2
     m_Bits: 270336
-  _contactDistanceY: 0.2
+  _raycastDistanceStanding: 1.05
+  _raycastDistanceCrouching: 0.55
+  _accelerationTime: 0.1
 --- !u!1 &1839966414228717814
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ namespace Game.Scripts
 
         [SerializeField] private RaycastController _raycastController = default;
         [SerializeField] private PlayerSoundController _soundController = default;
+        [SerializeField] private CrouchToggleController _crouchToggleController = default;
 
         [Space]
 
@@ -85,7 +86,6 @@ namespace Game.Scripts
         public float StepDistance => _stepDistance;
         public float NextStepRemainingDistance => _nextStepRemainingDistance;
 
-
         public override void Init()
         {
             _gravity = Vector3.zero;
@@ -145,7 +145,10 @@ namespace Game.Scripts
         private void CalculateHorizontalVelocity()
         {
             var accelerationTime = _raycastController.HasGround ? _accelerationTimeGrounded : _accelerationTimeAirborne;
-            var walkSpeed = true ? _walkSpeed : _reducedWalkSpeed;
+            var walkSpeed =
+                !_crouchToggleController.IsCrouching
+                    ? _walkSpeed
+                    : _reducedWalkSpeed;
 
             _inputVector.x = GameManager.Instance.InputWrapper.LeftStickHorizontal;
             _inputVector.y = GameManager.Instance.InputWrapper.LeftStickVertical;
