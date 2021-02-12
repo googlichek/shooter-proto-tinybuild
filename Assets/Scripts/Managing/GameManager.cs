@@ -6,12 +6,13 @@ namespace Game.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] private GameObject _rewired = null;
+        [SerializeField] private GameObject _rewired = default;
 
         [Space]
 
-        [SerializeField] private InputWrapper _inputWrapper = null;
-        [SerializeField] private PoolManager _poolManager = null;
+        [SerializeField] private InputWrapper _inputWrapper = default;
+        [SerializeField] private PoolManager _poolManager = default;
+        [SerializeField] private DataBase _dataBase = default;
 
         private readonly List<ITick> _lowPriorityTicks = new List<ITick>();
         private readonly List<ITick> _normalPriorityTicks = new List<ITick>();
@@ -22,6 +23,7 @@ namespace Game.Scripts
 
         public InputWrapper InputWrapper => _inputWrapper;
         public PoolManager PoolManager => _poolManager;
+        public DataBase DataBase => _dataBase;
 
         public int Tick => _tick;
 

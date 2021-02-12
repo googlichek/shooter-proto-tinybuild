@@ -21,11 +21,6 @@ namespace Game.Scripts
 
         [Space]
 
-        [SerializeField] [Range(0, 100)] private float _walkSpeed = 0;
-        [SerializeField] [Range(0, 100)] private float _reducedWalkSpeed = 0;
-
-        [Space]
-
         [SerializeField] [Range(0, 100)] private float _timeToJumpApex = 0;
 
         [Space]
@@ -65,6 +60,9 @@ namespace Game.Scripts
         private Vector3 _cameraRotation;
 
         private Vector2 _inputVector;
+
+        private float _walkSpeed = 0;
+        private float _crouchSpeed = 0;
 
         private float _smoothingX;
         private float _smoothingZ;
@@ -114,7 +112,22 @@ namespace Game.Scripts
             _smoothingPitch = 0;
 
             _nextStepRemainingDistance = _stepDistance;
+
+            GameManager.Instance.DataBase.Settings.OnChanged += HandleSettingsUpdate;
+            HandleSettingsUpdate(GameManager.Instance.DataBase.Settings.Data);
         }
+
+        public override void Disable()
+        {
+            GameManager.Instance.DataBase.Settings.OnChanged -= HandleSettingsUpdate;
+        }
+
+        private void HandleSettingsUpdate(SettingsData settings)
+        {
+            _walkSpeed = settings.WalkSpeed;
+            _crouchSpeed = settings.CrouchSpeed;
+        }
+
         public override void PhysicsTick()
         {
             CalculateGravityInfluence();
@@ -148,7 +161,7 @@ namespace Game.Scripts
             var walkSpeed =
                 !_crouchToggleController.IsCrouching
                     ? _walkSpeed
-                    : _reducedWalkSpeed;
+                    : _crouchSpeed;
 
             _inputVector.x = GameManager.Instance.InputWrapper.LeftStickHorizontal;
             _inputVector.y = GameManager.Instance.InputWrapper.LeftStickVertical;

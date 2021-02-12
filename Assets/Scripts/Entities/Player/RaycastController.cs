@@ -71,11 +71,11 @@ namespace Game.Scripts
 
         private void UpdateRaycastDistance()
         {
-            var tartetDistance = _crouchToggleController.IsCrouching
+            var targetDistance = _crouchToggleController.IsCrouching
                 ? _raycastDistanceCrouching
                 : _raycastDistanceStanding;
 
-            _raycastDistance = Mathf.SmoothDamp(_raycastDistance, tartetDistance, ref _raycastDistanceSmoothing,
+            _raycastDistance = Mathf.SmoothDamp(_raycastDistance, targetDistance, ref _raycastDistanceSmoothing,
                 _accelerationTime);
         }
     }
