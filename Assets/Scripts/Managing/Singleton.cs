@@ -54,7 +54,6 @@ namespace Game.Scripts
 
         protected virtual void Setup()
         {
-            DontDestroyOnLoad(gameObject);
         }
 
         private void HandleApplicationQuitting()

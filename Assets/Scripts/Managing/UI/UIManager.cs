@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Game.Scripts
@@ -46,6 +47,11 @@ namespace Game.Scripts
         {
             _score += value;
             _scoreText.text = $"SCORE: {_score}";
+        }
+
+        public void Restart()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

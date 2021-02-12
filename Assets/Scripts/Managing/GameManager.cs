@@ -87,10 +87,6 @@ namespace Game.Scripts
                 _lowPriorityTicks[i].CameraTick();
         }
 
-        protected override void Setup()
-        {
-        }
-
         public bool CheckIfAttached(ITick tick)
         {
             if (tick.Id == 0)
