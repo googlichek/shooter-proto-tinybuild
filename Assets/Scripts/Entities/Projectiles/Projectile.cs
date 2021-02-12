@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Scripts
 {
@@ -59,6 +58,7 @@ namespace Game.Scripts
                 return;
 
             damageReciever.Damage(Damage);
+            TryToScore(damageReciever);
         }
 
         public override void Enable()
@@ -92,6 +92,21 @@ namespace Game.Scripts
             _ownerId = damagerId;
 
             _rigidbody.AddForce(direction * _launchForce);
+        }
+
+        private void TryToScore(IHealth damageReciever)
+        {
+            if (damageReciever.Health <= 0)
+                switch (_type)
+                {
+                    case ResourceType.BulletTypeRegular:
+                        GameManager.Instance.UIManager.Score(1);
+                        break;
+
+                    case ResourceType.BulletTypeExplosive:
+                        GameManager.Instance.UIManager.Score(2);
+                        break;
+                }
         }
     }
 }

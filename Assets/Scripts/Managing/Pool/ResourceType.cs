@@ -3,8 +3,7 @@
     public enum ResourceType
     {
         None = 0,
-        BulletTypeZero = 1,
-        BulletTypeOne = 2,
-        Cube = 3
+        BulletTypeRegular = 1,
+        BulletTypeExplosive = 2
     }
 }

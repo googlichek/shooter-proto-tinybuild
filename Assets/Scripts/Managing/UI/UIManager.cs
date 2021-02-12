@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Scripts
 {
@@ -6,15 +7,22 @@ namespace Game.Scripts
     {
         [SerializeField] private SettingsScreenManager _settingsScreenManager = default;
 
-        private bool _isSettingsOpened;
+        [Space]
 
-        public SettingsScreenManager SettingsScreenManager => _settingsScreenManager;
+        [SerializeField] private Text _scoreText = default;
+
+        private int _score;
+
+        private bool _isSettingsOpened;
 
         public override void Enable()
         {
             base.Enable();
 
             _isSettingsOpened = false;
+
+            _score = 0;
+            Score(0);
         }
 
         public override void Tick()
@@ -32,6 +40,12 @@ namespace Game.Scripts
                     _isSettingsOpened = true;
                     _settingsScreenManager.gameObject.SetActive(true);
                 }
+        }
+
+        public void Score(int value)
+        {
+            _score += value;
+            _scoreText.text = $"SCORE: {_score}";
         }
     }
 }
