@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f00d3d95b98c26c45ab36b6f67a799d1, type: 2}
+  - {fileID: 2100000, guid: 0ec78d5e8b292014cb89154d90513199, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -221,13 +221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9263c9604c405574bbef461b0907460b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 7786471785160954771}
-  _audioSource: {fileID: -8679761360175317589}
-  _type: 1
-  _layerMask:
+  projectileRigidbody: {fileID: 7786471785160954771}
+  audioSource: {fileID: -8679761360175317589}
+  type: 2
+  layerMask:
     serializedVersion: 2
     m_Bits: 270336
-  _damage: 100
-  _launchForce: 800
-  _pushBackForce: 0
-  _totalLifeTime: 5
+  damage: 100
+  launchForce: 800
+  totalLifeTime: 5

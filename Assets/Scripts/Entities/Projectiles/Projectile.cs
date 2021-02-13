@@ -4,60 +4,58 @@ namespace Game.Scripts
 {
     public class Projectile : TickBehaviour, IResource, IDamageDealer
     {
-        [SerializeField] private Rigidbody _rigidbody = default;
-        [SerializeField] private AudioSource _audioSource = default;
+        [SerializeField] protected Rigidbody projectileRigidbody = default;
+        [SerializeField] protected AudioSource audioSource = default;
 
         [Space]
 
-        [SerializeField] private ResourceType _type = ResourceType.None;
+        [SerializeField] protected ResourceType type = ResourceType.None;
 
         [Space]
 
-        [SerializeField] private LayerMask _layerMask = LayerMask.GetMask();
+        [SerializeField] protected LayerMask layerMask = LayerMask.GetMask();
 
         [Space]
 
-        [SerializeField] [Range(0, 500)] private int _damage = 50;
+        [SerializeField] [Range(0, 500)] protected int damage = 50;
 
         [Space]
 
-        [SerializeField] [Range(0, 1000)] private int _launchForce = 500;
-
-        [SerializeField] [Range(0, 500)] private int _pushBackForce = 0;
+        [SerializeField] [Range(0, 1000)] protected int launchForce = 500;
 
         [Space]
 
-        [SerializeField] [Range(0, 10)] private float _totalLifeTime = 5f;
+        [SerializeField] [Range(0, 10)] protected float totalLifeTime = 5f;
 
-        private int _ownerId;
+        protected int ownerId;
 
-        private float _creationTime;
+        protected float creationTime;
 
-        private bool _isHit;
+        protected bool isHit;
 
         public GameObject GameObject => gameObject;
-        public ResourceType Type => _type;
-        public bool IsValid => !_isHit && _creationTime >= Time.time - _totalLifeTime;
+        public ResourceType Type => type;
+        public bool IsValid => !isHit && creationTime >= Time.time - totalLifeTime;
 
-        public int OwnerId => _ownerId;
-        public int Damage => _damage;
+        public int OwnerId => ownerId;
+        public int Damage => damage;
 
-        public int LaunchForce => _launchForce;
+        public int LaunchForce => launchForce;
 
-        void OnTriggerEnter(Collider bump)
+        public virtual void OnTriggerEnter(Collider bump)
         {
-            if (!_layerMask.HasLayer(bump.gameObject.layer))
+            if (!layerMask.HasLayer(bump.gameObject.layer))
                 return;
 
-            _isHit = true;
-            _rigidbody.velocity = Vector3.zero;
-            _audioSource.Play();
+            isHit = true;
+            projectileRigidbody.velocity = Vector3.zero;
+            audioSource.Play();
 
             var damageReciever = bump.gameObject.GetComponent<IHealth>();
-            if (damageReciever == null || damageReciever.Id == _ownerId)
+            if (damageReciever == null || damageReciever.Id == ownerId)
                 return;
 
-            damageReciever.Damage(Damage);
+            damageReciever.Damage(damage);
             TryToScore(damageReciever);
         }
 
@@ -65,48 +63,39 @@ namespace Game.Scripts
         {
             base.Enable();
 
-            _isHit = false;
-            _creationTime = Time.time;
-            _rigidbody.velocity = Vector3.zero;
+            isHit = false;
+            creationTime = Time.time;
+            projectileRigidbody.velocity = Vector3.zero;
         }
 
         public override void Tick()
         {
             base.Tick();
 
-            if (!IsValid && !_audioSource.isPlaying)
+            if (!IsValid && !audioSource.isPlaying)
                 GameManager.Instance.PoolManager.Despawn(this);
         }
 
         public override void Disable()
         {
-            _isHit = false;
-            _creationTime = -1;
-            _rigidbody.velocity = Vector3.zero;
+            isHit = false;
+            creationTime = -1;
+            projectileRigidbody.velocity = Vector3.zero;
 
             base.Disable();
         }
 
         public virtual void Setup(int damagerId, Vector3 direction)
         {
-            _ownerId = damagerId;
+            ownerId = damagerId;
 
-            _rigidbody.AddForce(direction * _launchForce);
+            projectileRigidbody.AddForce(direction * launchForce);
         }
 
-        private void TryToScore(IHealth damageReciever)
+        protected virtual void TryToScore(IHealth damageReciever)
         {
             if (damageReciever.Health <= 0)
-                switch (_type)
-                {
-                    case ResourceType.BulletTypeRegular:
-                        GameManager.Instance.UIManager.Score(1);
-                        break;
-
-                    case ResourceType.BulletTypeExplosive:
-                        GameManager.Instance.UIManager.Score(2);
-                        break;
-                }
+                GameManager.Instance.UIManager.Score(1);
         }
     }
 }

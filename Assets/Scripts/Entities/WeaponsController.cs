@@ -26,8 +26,6 @@ namespace Game.Scripts
             foreach (var weaponTemplate in _weaponTemplates)
             {
                 var weapon = Instantiate(weaponTemplate, _modelRoot);
-                weapon.Setup(_toggleController);
-
                 _weapons.Add(weapon);
             }
 
@@ -37,11 +35,6 @@ namespace Game.Scripts
         public override void Tick()
         {
             HandleInput();
-        }
-
-        public void Setup(CrouchToggleController toggleController)
-        {
-            _toggleController = toggleController;
         }
 
         private void HandleInput()

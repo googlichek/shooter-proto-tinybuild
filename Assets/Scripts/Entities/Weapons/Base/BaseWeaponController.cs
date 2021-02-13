@@ -44,6 +44,7 @@ namespace Game.Scripts
         public override void Enable()
         {
             _camera = FindObjectOfType<Camera>();
+            _toggleController = FindObjectOfType<CrouchToggleController>();
         }
         
         public override void Dispose()
@@ -51,11 +52,6 @@ namespace Game.Scripts
             DetachComponent(_weaponModel);
 
             base.Dispose();
-        }
-
-        public void Setup(CrouchToggleController toggleController)
-        {
-            _toggleController = toggleController;
         }
 
         public void SetSelectedState(bool value)
@@ -76,11 +72,10 @@ namespace Game.Scripts
                 return;
 
             var direction = GetBulletDirection();
+            var projectileType = _toggleController.IsCrouching ? _doublePowerBullet : _regularBullet;
             var projectile =
                 GameManager.Instance.PoolManager.Spawn(
-                    _toggleController.IsCrouching
-                        ? _doublePowerBullet
-                        : _regularBullet,
+                    projectileType,
                     null,
                     _bulletStart.position,
                     Quaternion.identity);

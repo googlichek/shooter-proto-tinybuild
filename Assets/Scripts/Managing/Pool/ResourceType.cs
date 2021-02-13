@@ -4,6 +4,8 @@
     {
         None = 0,
         BulletTypeRegular = 1,
-        BulletTypeExplosive = 2
+        BulletTypeDoublePower = 2,
+        BulletTypeExplosive = 3,
+        BulletTypeExplosiveDoublePower = 4
     }
 }
