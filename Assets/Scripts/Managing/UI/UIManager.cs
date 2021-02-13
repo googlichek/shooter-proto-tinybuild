@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -6,7 +7,9 @@ namespace Game.Scripts
 {
     public class UIManager : TickBehaviour
     {
-        [SerializeField] private SettingsScreenManager _settingsScreenManager = default;
+        private const int SettingsScreenIndex = 2;
+
+        [SerializeField] private List<GameObject> _screens = default;
 
         [Space]
 
@@ -14,16 +17,46 @@ namespace Game.Scripts
 
         private int _score;
 
-        private bool _isSettingsOpened;
+        private int _activeScreenIndex;
+        private int _cachedScreenIndex;
+
+        public bool IsOnSettingsScreen => _activeScreenIndex == SettingsScreenIndex;
+
+        public override void Init()
+        {
+            base.Init();
+
+            _activeScreenIndex = SceneManager.GetActiveScene().buildIndex;
+            _cachedScreenIndex = _activeScreenIndex;
+
+            for (int i = 0; i < _screens.Count; i++)
+            {
+                if (i != _activeScreenIndex)
+                {
+                    TurnOffScreen(i);
+                }
+                else
+                {
+                    TurnOnScreen(i);
+                }
+            }
+        }
 
         public override void Enable()
         {
             base.Enable();
 
-            _isSettingsOpened = false;
+            SceneManager.sceneLoaded += HandleSceneLoaded;
 
             _score = 0;
             Score(0);
+        }
+
+        public override void Disable()
+        {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
+
+            base.Disable();
         }
 
         public override void Tick()
@@ -31,15 +64,13 @@ namespace Game.Scripts
             base.Tick();
 
             if (GameManager.Instance.InputWrapper.IsEscapePressed)
-                if (_isSettingsOpened)
+                if (_activeScreenIndex == SettingsScreenIndex)
                 {
-                    _isSettingsOpened = false;
-                    _settingsScreenManager.gameObject.SetActive(false);
+                    TurnOffSettingsScreen();
                 }
                 else
                 {
-                    _isSettingsOpened = true;
-                    _settingsScreenManager.gameObject.SetActive(true);
+                    TurnOnScreen(SettingsScreenIndex);
                 }
         }
 
@@ -51,7 +82,35 @@ namespace Game.Scripts
 
         public void Restart()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
+        }
+
+        public void TurnOnScreen(int index)
+        {
+            _cachedScreenIndex = _activeScreenIndex;
+            _activeScreenIndex = index;
+
+            _screens[index].SetActive(true);
+        }
+
+        public void TurnOffScreen(int index)
+        {
+            _screens[index].SetActive(false);
+        }
+
+        public void TurnOffSettingsScreen()
+        {
+            _activeScreenIndex = _cachedScreenIndex;
+            _cachedScreenIndex = SettingsScreenIndex;
+
+            _screens[_cachedScreenIndex].SetActive(false);
+            _screens[_activeScreenIndex].SetActive(true);
+        }
+
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode sceneMode)
+        {
+            _score = 0;
+            Score(0);
         }
     }
 }

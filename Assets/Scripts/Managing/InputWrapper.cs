@@ -137,10 +137,10 @@ namespace Game.Scripts
 
         private void UpdateInputState()
         {
-            if (!_isEscapePressed)
-                return;
-
-            _state = _state == InputState.Game ? InputState.UI : InputState.Game;
+            if (GameManager.Instance.UIManager.IsOnSettingsScreen)
+                _state = InputState.UI;
+            else
+                _state = InputState.Game;
         }
     }
 }

@@ -29,10 +29,8 @@ namespace Game.Scripts
 
         public int Tick => _tick;
 
-        protected override void Awake()
+        protected override void Setup()
         {
-            base.Awake();
-
             Application.targetFrameRate = Constants.TargetFrameRate;
             Application.backgroundLoadingPriority = ThreadPriority.Normal;
 
@@ -40,6 +38,8 @@ namespace Game.Scripts
 
             //Cursor.lockState = CursorLockMode.Locked;
             //Cursor.visible = false;
+
+            DontDestroyOnLoad(gameObject);
         }
 
         void OnEnable()
