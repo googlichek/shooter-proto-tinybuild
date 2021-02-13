@@ -10,4 +10,6 @@ Shoot: MouseLeft Button
 
 Crouch: LCtrl
 
+Jump: Space
+
 Settings: Escape
