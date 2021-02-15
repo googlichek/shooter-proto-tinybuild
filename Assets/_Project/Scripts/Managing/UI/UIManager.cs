@@ -85,6 +85,11 @@ namespace Game.Scripts
             SceneManager.LoadScene(1);
         }
 
+        public void Exit()
+        {
+            Application.Quit();
+        }
+
         public void TurnOnScreen(int index)
         {
             _cachedScreenIndex = _activeScreenIndex;

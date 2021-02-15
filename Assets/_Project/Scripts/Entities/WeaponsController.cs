@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Scripts
@@ -9,7 +8,6 @@ namespace Game.Scripts
         private const int SimpleGunIndex = 0;
         private const int ExplosiveGunIndex = 1;
 
-        [SerializeField] private Camera _camera = null;
         [SerializeField] private Transform _modelRoot = null;
 
         [Space] [SerializeField] private List<BaseWeaponController> _weaponTemplates = new List<BaseWeaponController>();
