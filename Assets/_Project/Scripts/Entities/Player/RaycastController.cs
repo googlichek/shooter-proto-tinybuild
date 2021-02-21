@@ -33,8 +33,6 @@ namespace Game.Scripts
 
         private float _raycastDistanceSmoothing;
 
-        private bool _hasGround;
-
         void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
@@ -65,8 +63,6 @@ namespace Game.Scripts
         {
             var ray = new Ray(raycastOrigin, direction);
             Physics.Raycast(ray, out _hitDown, _raycastDistance);
-
-            _hasGround = _hitDown.collider != null;
         }
 
         private void UpdateRaycastDistance()

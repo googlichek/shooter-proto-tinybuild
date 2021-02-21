@@ -10,7 +10,9 @@ namespace Game.Scripts
 
         [SerializeField] private Transform _modelRoot = null;
 
-        [Space] [SerializeField] private List<BaseWeaponController> _weaponTemplates = new List<BaseWeaponController>();
+        [Space]
+
+        [SerializeField] private List<BaseWeaponController> _weaponTemplates = new List<BaseWeaponController>();
 
         private readonly List<BaseWeaponController> _weapons = new List<BaseWeaponController>();
 
@@ -18,7 +20,7 @@ namespace Game.Scripts
 
         private int _activeWeaponIndex;
 
-        public override void Enable()
+        public override void Init()
         {
             _activeWeaponIndex = -1;
             foreach (var weaponTemplate in _weaponTemplates)
